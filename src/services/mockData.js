@@ -63,3 +63,13 @@ export const devices = [
   { id: 'AB-06', name: 'Garden irrigation line', status: 'online', flow: 8.9, ntu: 1.4, signal: -72, lastSync: 'just now',
     note: 'Back online. 212 stored readings synced.', noteOk: true },
 ]
+export const allAlerts = [
+  { id: 1, level: 'critical', type: 'quality', title: 'Turbidity above safe limit', device: 'AB-03', time: '10:42',
+    detail: 'Library washrooms reads 6.2 NTU, above the 5 NTU permissible limit.' },
+  { id: 2, level: 'warning', type: 'usage', title: 'Usage above normal', device: 'AB-02', time: 'Yesterday',
+    detail: 'Main inlet used 18% more than its 7-day average.' },
+  { id: 3, level: 'info', type: 'offline', title: 'Device offline, logging locally', device: 'AB-04', time: '09:58',
+    detail: 'Canteen kitchen line lost Wi-Fi. 1,284 readings stored on the device so far.' },
+  { id: 4, level: 'resolved', type: 'sync', title: 'Backlog synced', device: 'AB-06', time: '09:31',
+    detail: 'Garden irrigation line reconnected and uploaded 212 stored readings.' },
+]
