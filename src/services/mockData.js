@@ -43,3 +43,23 @@ export const recentAlerts = [
   { id: 3, level: 'info', title: 'Device offline, logging locally', device: 'AB-04', time: '09:58' },
   { id: 4, level: 'resolved', title: 'Backlog synced', device: 'AB-06', time: '09:31' },
 ]
+// Small wave for each device card
+export function getSparkline(seed) {
+  let v = 10
+  return Array.from({ length: 24 }, (_, i) => {
+    v += Math.sin(i * seed) * 2 + (Math.random() - 0.5) * 2
+    v = Math.max(2, Math.min(20, v))
+    return { i, v }
+  })
+}
+
+export const devices = [
+  { id: 'AB-01', name: 'Hostel Block A · Overhead tank', status: 'online', flow: 12.1, ntu: 0.72, signal: -58, lastSync: '2 s ago' },
+  { id: 'AB-02', name: 'Main inlet · Pump house', status: 'online', flow: 24.6, ntu: 0.81, signal: -49, lastSync: '1 s ago' },
+  { id: 'AB-03', name: 'Library washrooms', status: 'warning', flow: 6.2, ntu: 6.2, signal: -66, lastSync: '4 s ago' },
+  { id: 'AB-04', name: 'Canteen kitchen line', status: 'offline', flow: null, ntu: null, signal: null, lastSync: '38 min ago',
+    note: '1,284 readings stored on the device. They will upload when Wi-Fi returns.' },
+  { id: 'AB-05', name: 'Lab building · RO feed', status: 'online', flow: 3.4, ntu: 0.21, signal: -61, lastSync: '3 s ago' },
+  { id: 'AB-06', name: 'Garden irrigation line', status: 'online', flow: 8.9, ntu: 1.4, signal: -72, lastSync: 'just now',
+    note: 'Back online. 212 stored readings synced.', noteOk: true },
+]
