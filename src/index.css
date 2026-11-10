@@ -14,12 +14,17 @@
 
   --animate-float: float 6s ease-in-out infinite;
   --animate-enter: enter 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-ripple: ripple 6s linear infinite;
 
   @keyframes float {
     50% { transform: translateY(-10px); }
   }
   @keyframes enter {
     from { opacity: 0; transform: translateY(14px); }
+  }
+  @keyframes ripple {
+    from { width: 120px; height: 120px; opacity: 1; }
+    to { width: 900px; height: 900px; opacity: 0; }
   }
 }
 
