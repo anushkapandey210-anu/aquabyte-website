@@ -16,6 +16,12 @@
   --animate-enter: enter 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
   --animate-ripple: ripple 6s linear infinite;
 
+  --animate-pop: pop 0.35s cubic-bezier(0.2, 1.3, 0.4, 1) both;
+
+  @keyframes pop {
+    from { opacity: 0; transform: scale(0.85) translateY(20px); }
+  }
+
   @keyframes float {
     50% { transform: translateY(-10px); }
   }
