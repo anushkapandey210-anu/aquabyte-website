@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Save, Mail, MessageSquare, Bell, CalendarDays } from 'lucide-react'
-import { getCurrentUser, isAdmin } from '../services/auth'
+import { isAdmin } from '../services/auth'
+import { useAuth } from '../context/AuthContext'
 
 const input = 'w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-white outline-none transition focus:border-aqua-blue focus:ring-4 focus:ring-aqua-blue/15'
 const initials = name => name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()
@@ -29,7 +30,7 @@ function Slider({ id, label, value, onChange, min, max, step, unit, hint }) {
 }
 
 export default function Profile() {
-  const user = getCurrentUser()
+  const { user } = useAuth()
   const admin = isAdmin(user)
 
   const [details, setDetails] = useState({ name: user.name, phone: '', email: user.email, language: 'English' })
@@ -98,7 +99,7 @@ export default function Profile() {
               </div>
               <div>
                 <label htmlFor="pf-email" className="block text-sm font-semibold mb-1.5">Email</label>
-                <input id="pf-email" name="email" type="email" value={details.email} onChange={update} className={input} />
+                <input id="pf-email" name="email" type="email" value={details.email} readOnly title="Your login email can't be changed here" className={`${input} bg-slate-50 text-aqua-grey`} />
               </div>
               <div>
                 <label htmlFor="pf-lang" className="block text-sm font-semibold mb-1.5">Language</label>

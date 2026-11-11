@@ -6,8 +6,7 @@ import HourlyChart from '../components/HourlyChart'
 import QualityGauge from '../components/QualityGauge'
 import UsageBars from '../components/UsageBars'
 import { recentAlerts } from '../services/mockData'
-
-const userName = 'Anushka' // Later: the logged-in user's name
+import { useAuth } from '../context/AuthContext'
 
 const levels = {
   critical: { bar: 'bg-red-500', pill: 'bg-red-50 text-red-600', label: 'Critical' },
@@ -22,6 +21,8 @@ function greeting() {
 }
 
 export default function Dashboard() {
+  const { user } = useAuth()
+  const userName = user?.name?.split(' ')[0] || 'there'
   const [range, setRange] = useState('Live')
   const [flow, setFlow] = useState(46.2)
   const [ntu, setNtu] = useState(0.82)

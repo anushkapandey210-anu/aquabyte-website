@@ -9,12 +9,8 @@ export const ADMINS = [
   { name: 'AquaByte (company)', email: COMPANY_EMAIL },
 ]
 
-// Later: return the real logged-in user from your login system.
-// To test the locked screen, change this email to someone who isn't an admin.
-export function getCurrentUser() {
-  return { name: 'Anushka Pandey', email: 'anushka06pandey@gmail.com' }
-}
-
+// True when the signed-in person's email is in the ADMINS list.
+// Important: the backend must check this too before any admin action.
 export function isAdmin(user) {
-  return !!user && ADMINS.some(a => a.email.toLowerCase() === user.email.trim().toLowerCase())
+  return !!user?.email && ADMINS.some(a => a.email.toLowerCase() === user.email.trim().toLowerCase())
 }

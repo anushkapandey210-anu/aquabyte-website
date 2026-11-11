@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
 import icon from '../assets/aquabyte-icon.png'
+import { useAuth } from '../context/AuthContext'
 
 export function Brand() {
   return (
@@ -26,6 +27,7 @@ const links = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
+  const { user } = useAuth()
   return (
     <header className="sticky top-0 z-50 bg-white/85 backdrop-blur border-b border-slate-100">
       <div className="max-w-6xl mx-auto px-4 h-[70px] flex items-center justify-between">
@@ -37,9 +39,18 @@ export default function Navbar() {
             </NavLink>
           ))}
         </nav>
-        <div className="hidden md:flex gap-2">
-          <Link to="/login" className="px-4 py-2 rounded-lg border border-slate-200 font-semibold text-sm hover:border-aqua-blue hover:text-aqua-blue transition">Log in</Link>
-          <Link to="/signup" className="px-4 py-2 rounded-lg bg-aqua-blue text-white font-semibold text-sm shadow-lg shadow-blue-500/30 hover:-translate-y-0.5 transition">Get started</Link>
+        <div className="hidden md:flex gap-2 items-center">
+          {user ? (
+            <Link to="/dashboard" className="flex items-center gap-2 pl-1.5 pr-4 py-1.5 rounded-full bg-aqua-blue text-white font-semibold text-sm shadow-lg shadow-blue-500/30 hover:-translate-y-0.5 transition">
+              <span className="w-7 h-7 rounded-full bg-white/25 grid place-items-center text-xs">{user.name[0]?.toUpperCase()}</span>
+              Open dashboard
+            </Link>
+          ) : (
+            <>
+              <Link to="/login" className="px-4 py-2 rounded-lg border border-slate-200 font-semibold text-sm hover:border-aqua-blue hover:text-aqua-blue transition">Log in</Link>
+              <Link to="/signup" className="px-4 py-2 rounded-lg bg-aqua-blue text-white font-semibold text-sm shadow-lg shadow-blue-500/30 hover:-translate-y-0.5 transition">Get started</Link>
+            </>
+          )}
         </div>
         <button className="md:hidden p-2" onClick={() => setOpen(!open)} aria-label="Menu">
           {open ? <X /> : <Menu />}
@@ -50,7 +61,12 @@ export default function Navbar() {
           {links.map(l => (
             <Link key={l.label} to={l.to} onClick={() => setOpen(false)} className="text-aqua-grey font-medium">{l.label}</Link>
           ))}
-          <Link to="/signup" onClick={() => setOpen(false)} className="px-4 py-2 rounded-lg bg-aqua-blue text-white font-semibold text-center">Get started</Link>
+          {user
+            ? <Link to="/dashboard" onClick={() => setOpen(false)} className="px-4 py-2 rounded-lg bg-aqua-blue text-white font-semibold text-center">Open dashboard</Link>
+            : <>
+                <Link to="/login" onClick={() => setOpen(false)} className="text-aqua-grey font-medium">Log in</Link>
+                <Link to="/signup" onClick={() => setOpen(false)} className="px-4 py-2 rounded-lg bg-aqua-blue text-white font-semibold text-center">Get started</Link>
+              </>}
         </div>
       )}
     </header>

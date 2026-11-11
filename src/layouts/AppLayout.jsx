@@ -1,8 +1,9 @@
-import { NavLink, Link, Outlet } from 'react-router-dom'
+import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { LayoutGrid, LineChart, Cpu, Bell, ShieldCheck, User, Lock, LogOut, RefreshCw } from 'lucide-react'
 import { Brand } from '../components/Navbar'
 import AquaButton from '../components/AquaButton'
-import { getCurrentUser, isAdmin } from '../services/auth'
+import { isAdmin } from '../services/auth'
+import { useAuth } from '../context/AuthContext'
 
 const groups = [
   {
@@ -29,7 +30,14 @@ const linkStyle = ({ isActive }) =>
   }`
 
 export default function AppLayout() {
-  const admin = isAdmin(getCurrentUser())
+  const { user, logout } = useAuth()
+  const navigate = useNavigate()
+  const admin = isAdmin(user)
+
+  async function handleLogout() {
+    await logout()
+    navigate('/', { replace: true })
+  }
 
   return (
     <div className="min-h-screen md:grid md:grid-cols-[250px_1fr] bg-slate-50">
@@ -55,13 +63,24 @@ export default function AppLayout() {
                 ))}
             </div>
           ))}
-          <Link to="/" className="flex items-center gap-3 px-3 py-2.5 rounded-lg font-medium whitespace-nowrap text-aqua-grey hover:bg-red-50 hover:text-red-600 transition">
+          <button onClick={handleLogout} className="flex items-center gap-3 px-3 py-2.5 rounded-lg font-medium whitespace-nowrap text-aqua-grey hover:bg-red-50 hover:text-red-600 transition">
             <LogOut size={18} /> Log out
-          </Link>
+          </button>
         </nav>
 
+        {/* Signed-in person (desktop only) */}
+        <NavLink to="/profile" className="hidden md:flex items-center gap-3 mt-auto mb-3 p-2 rounded-xl hover:bg-slate-50 transition">
+          {user?.photo
+            ? <img src={user.photo} alt="" referrerPolicy="no-referrer" className="w-9 h-9 rounded-full object-cover" />
+            : <span className="w-9 h-9 rounded-full bg-gradient-to-br from-aqua-blue to-aqua-teal text-white grid place-items-center text-sm font-bold">{user?.name?.[0]?.toUpperCase()}</span>}
+          <span className="min-w-0">
+            <b className="block text-sm truncate">{user?.name}</b>
+            <span className="block text-xs text-aqua-grey truncate">{user?.email}</span>
+          </span>
+        </NavLink>
+
         {/* Sync health box (desktop only) */}
-        <div className="hidden md:block mt-auto bg-aqua-lightteal rounded-xl p-3.5 text-sm">
+        <div className="hidden md:block bg-aqua-lightteal rounded-xl p-3.5 text-sm">
           <b className="flex items-center gap-2 text-aqua-teal"><RefreshCw size={15} /> Sync health</b>
           <span className="block text-aqua-grey text-xs mt-1">5 of 6 devices live · 1 buffering</span>
           <div className="h-1.5 bg-slate-200 rounded-full overflow-hidden mt-2">

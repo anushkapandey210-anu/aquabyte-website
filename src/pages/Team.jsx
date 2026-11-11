@@ -43,9 +43,15 @@ const TEAM = [
 ]
 
 const ACHIEVEMENT = {
-  event: 'IDEAS 4.0 · K.R. Mangalam University',
+  event: 'IDEAS 4.0 · 27 Oct 2026',
   title: 'Recognised on stage at IDEAS 4.0',
   text: 'We presented AquaByte at IDEAS 4.0, the innovation and entrepreneurship event by KEIC at K.R. Mangalam University, and were awarded certificates on stage. A moment that pushed us to keep building.',
+  // Photos live in public/achievements/
+  photos: [
+    { src: '/achievements/ideas-1.jpg', alt: 'Receiving our certificate on stage at IDEAS 4.0' },
+    { src: '/achievements/ideas-2.jpg', alt: 'The AquaByte team on stage at IDEAS 4.0' },
+    { src: '/achievements/ideas-3.jpg', alt: 'Certificate of recognition at K.R. Mangalam University' },
+  ],
 }
 
 const VALUES = [
@@ -160,6 +166,7 @@ export default function Team() {
   const [active, setActive] = useState(0)
   const [paused, setPaused] = useState(false)
   const [copied, setCopied] = useState(false)
+  const [photo, setPhoto] = useState(0)
   const [bandRef, bandSeen] = useInView()
 
   useRipples(heroRef, canvasRef)
@@ -294,11 +301,23 @@ export default function Team() {
         <span className="tm-kicker">Achievements</span>
         <h2>Recognition so far</h2>
         <div className="tm-ach">
-          <div className="tm-ac big">
-            <span className="tm-ac-icon"><Trophy size={24} /></span>
-            <span className="tm-ac-event">{ACHIEVEMENT.event}</span>
-            <h3>{ACHIEVEMENT.title}</h3>
-            <p>{ACHIEVEMENT.text}</p>
+          <div className="tm-ac big tm-ac-feature">
+            <div className="tm-gallery">
+              <img key={photo} className="tm-gallery-main" src={ACHIEVEMENT.photos[photo].src} alt={ACHIEVEMENT.photos[photo].alt} />
+              <div className="tm-gallery-thumbs">
+                {ACHIEVEMENT.photos.map((ph, i) => (
+                  <button key={ph.src} className={i === photo ? 'on' : ''} onClick={() => setPhoto(i)} aria-label={`Show photo ${i + 1}`}>
+                    <img src={ph.src} alt="" />
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="tm-ac-text">
+              <span className="tm-ac-icon"><Trophy size={24} /></span>
+              <span className="tm-ac-event">{ACHIEVEMENT.event}</span>
+              <h3>{ACHIEVEMENT.title}</h3>
+              <p>{ACHIEVEMENT.text}</p>
+            </div>
           </div>
           <div className="tm-ac">
             <span className="tm-ac-icon"><Check size={22} /></span>
