@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Lock, UserPlus, Users, Activity, Cloud, MapPin } from 'lucide-react'
 import AccessDenied from '../components/AccessDenied'
+import AdminAccess from '../components/AdminAccess'
 import { ADMINS } from '../services/auth'
 
 const initials = name => name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()
@@ -28,6 +29,7 @@ export default function Admin() {
   const [users, setUsers] = useState(startUsers)
   const [preview, setPreview] = useState(false)
   const [toast, setToast] = useState('')
+  const [extraAdmins, setExtraAdmins] = useState(0)
 
   useEffect(() => {
     if (!toast) return
@@ -70,10 +72,12 @@ export default function Admin() {
 
       {preview ? <AccessDenied onExit={() => setPreview(false)} /> : (
         <>
+          <AdminAccess onToast={setToast} onCount={setExtraAdmins} />
+
           {/* KPIs */}
           <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-4">
             {[
-              { label: 'Users', value: users.length, note: `${ADMINS.length} admin accounts`, icon: Users },
+              { label: 'Admins', value: new Set(ADMINS.map(a => a.name)).size + extraAdmins, note: `${new Set(ADMINS.map(a => a.name)).size} founding · ${extraAdmins} added`, icon: Users },
               { label: 'Readings today', value: '41,280', note: '1,284 waiting on devices', icon: Activity, teal: true },
               { label: 'Platform uptime', value: '99.2%', note: 'Last 30 days', icon: Cloud },
               { label: 'Active sites', value: 6, note: '5 live · 1 buffering', icon: MapPin, teal: true },

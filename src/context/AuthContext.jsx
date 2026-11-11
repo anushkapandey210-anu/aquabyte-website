@@ -4,6 +4,8 @@ import {
   updateProfile, signInWithPopup, sendPasswordResetEmail, sendEmailVerification, signOut,
 } from 'firebase/auth'
 import { auth, googleProvider, firebaseReady } from '../services/firebase'
+import { isFoundingAdmin } from '../services/auth'
+import { hasAdminRecord } from '../services/admins'
 
 const AuthContext = createContext(null)
 
@@ -21,13 +23,23 @@ function toUser(u) {
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
+  const [role, setRole] = useState({ isAdmin: false, isFounder: false })
   // While Firebase checks if someone is already signed in, pages wait
   const [loading, setLoading] = useState(firebaseReady)
 
   useEffect(() => {
     if (!auth) return
-    const unsubscribe = onAuthStateChanged(auth, u => {
-      setUser(toUser(u))
+    const unsubscribe = onAuthStateChanged(auth, async u => {
+      const plain = toUser(u)
+      let next = { isAdmin: false, isFounder: false }
+      if (plain) {
+        const founder = isFoundingAdmin(plain)
+        // Extra admins need a verified email too
+        const extra = !founder && plain.verified ? await hasAdminRecord(plain.email) : false
+        next = { isAdmin: founder || extra, isFounder: founder }
+      }
+      setUser(plain)
+      setRole(next)
       setLoading(false)
     })
     return () => { unsubscribe() }
@@ -45,6 +57,9 @@ export function AuthProvider({ children }) {
   const value = {
     user,
     loading,
+    isAdmin: role.isAdmin,
+    isFounder: role.isFounder,
+    resendVerification: () => sendEmailVerification(auth.currentUser),
     firebaseReady,
     signup,
     login: (email, password) => signInWithEmailAndPassword(auth, email.trim(), password),

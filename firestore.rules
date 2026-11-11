@@ -1,0 +1,46 @@
+rules_version = '2';
+
+// AquaByte Firestore security rules.
+// Paste this into Firebase console › Firestore Database › Rules, then click Publish.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Signed in with a verified email (Google sign-in is always verified)
+    function signedIn() {
+      return request.auth != null && request.auth.token.email_verified == true;
+    }
+    function myEmail() {
+      return request.auth.token.email.lower();
+    }
+    // The 5 founding admins. Keep this list the same as ADMINS in src/services/auth.js
+    function isFounder() {
+      return signedIn() && myEmail() in [
+        'anushka06pandey@gmail.com',
+        'bbhavisingal@gmail.com',
+        'nishantkumar1826@gmail.com',
+        'aquabyte.nishant@gmail.com',
+        'aquabyteiotsolutions@gmail.com'
+      ];
+    }
+    function isAdmin() {
+      return isFounder() || (signedIn() && exists(/databases/$(database)/documents/admins/$(myEmail())));
+    }
+
+    // Extra admins, added from the Admin page
+    match /admins/{email} {
+      allow get: if signedIn() && (email == myEmail() || isAdmin());
+      allow list: if isAdmin();
+      allow create: if isFounder()
+        && email == email.lower()
+        && request.resource.data.email == email
+        && request.resource.data.addedBy == myEmail();
+      allow delete: if isFounder();
+      allow update: if false;
+    }
+
+    // Everything else stays closed until we add rules for it
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -9,8 +9,16 @@ export const ADMINS = [
   { name: 'AquaByte (company)', email: COMPANY_EMAIL },
 ]
 
-// True when the signed-in person's email is in the ADMINS list.
-// Important: the backend must check this too before any admin action.
+export const FOUNDER_EMAILS = ADMINS.map(a => a.email.toLowerCase())
+
+// Founding admins are always admins, and only they can add or remove other admins.
+// Their email must be verified (Google sign-in always is), so nobody can sign up
+// with a founder's email address and get in.
+export function isFoundingAdmin(user) {
+  return !!user?.email && user.verified && FOUNDER_EMAILS.includes(user.email.trim().toLowerCase())
+}
+
+// Kept so older code still works: the real answer comes from useAuth().isAdmin
 export function isAdmin(user) {
-  return !!user?.email && ADMINS.some(a => a.email.toLowerCase() === user.email.trim().toLowerCase())
+  return !!user?.isAdmin
 }

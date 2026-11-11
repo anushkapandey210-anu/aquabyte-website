@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { Save, Mail, MessageSquare, Bell, CalendarDays } from 'lucide-react'
-import { isAdmin } from '../services/auth'
 import { useAuth } from '../context/AuthContext'
 
 const input = 'w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-white outline-none transition focus:border-aqua-blue focus:ring-4 focus:ring-aqua-blue/15'
@@ -30,8 +29,7 @@ function Slider({ id, label, value, onChange, min, max, step, unit, hint }) {
 }
 
 export default function Profile() {
-  const { user } = useAuth()
-  const admin = isAdmin(user)
+  const { user, isAdmin: admin } = useAuth()
 
   const [details, setDetails] = useState({ name: user.name, phone: '', email: user.email, language: 'English' })
   const [ntuLimit, setNtuLimit] = useState(5)

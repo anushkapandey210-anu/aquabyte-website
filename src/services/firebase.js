@@ -3,6 +3,7 @@
 // but keeping them in .env makes it easy to switch projects.
 import { initializeApp } from 'firebase/app'
 import { getAuth, GoogleAuthProvider } from 'firebase/auth'
+import { getFirestore } from 'firebase/firestore'
 
 const config = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -19,6 +20,7 @@ export const firebaseReady = Boolean(config.apiKey && config.authDomain && confi
 
 export const app = firebaseReady ? initializeApp(config) : null
 export const auth = app ? getAuth(app) : null
+export const db = app ? getFirestore(app) : null
 
 export const googleProvider = new GoogleAuthProvider()
 googleProvider.setCustomParameters({ prompt: 'select_account' })

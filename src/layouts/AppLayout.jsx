@@ -2,7 +2,6 @@ import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { LayoutGrid, LineChart, Cpu, Bell, ShieldCheck, User, Lock, LogOut, RefreshCw } from 'lucide-react'
 import { Brand } from '../components/Navbar'
 import AquaButton from '../components/AquaButton'
-import { isAdmin } from '../services/auth'
 import { useAuth } from '../context/AuthContext'
 
 const groups = [
@@ -30,9 +29,8 @@ const linkStyle = ({ isActive }) =>
   }`
 
 export default function AppLayout() {
-  const { user, logout } = useAuth()
+  const { user, logout, isAdmin: admin } = useAuth()
   const navigate = useNavigate()
-  const admin = isAdmin(user)
 
   async function handleLogout() {
     await logout()
