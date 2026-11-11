@@ -25,7 +25,8 @@ export default function Footer() {
           </div>
           <div>
             <h5 className="text-white text-xs font-semibold tracking-widest uppercase mb-3">Contact</h5>
-            <p className="text-sm">hello@aquabyte.in<br />India</p>
+            <a href="mailto:aquabyteiotsolutions@gmail.com" className="block text-sm hover:text-white break-all select-all">aquabyteiotsolutions@gmail.com</a>
+            <p className="text-sm mt-1">India</p>
           </div>
         </div>
         <div className="border-t border-slate-700 mt-10 pt-5 flex flex-wrap justify-between gap-2 text-sm">
