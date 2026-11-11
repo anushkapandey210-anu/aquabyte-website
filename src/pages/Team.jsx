@@ -17,7 +17,7 @@ const TEAM = [
     ],
     quote: 'Sometimes all it takes is the ambition to build something from scratch.',
     focus: ['Vision', 'Research', 'Execution'],
-    linkedin: '', // paste the LinkedIn link here, or leave empty to hide the button
+    linkedin: 'https://www.linkedin.com/in/kumar-nishant-ds', // leave empty to hide the button
   },
   {
     name: 'Bhavya Singhal', short: 'Bhavya', role: 'Co-founder', tone: 'teal',
@@ -28,7 +28,7 @@ const TEAM = [
       "She is the team's strategist and thinker. She helps decide where AquaByte is heading, brings people and ideas together, and makes sure every big decision has a clear reason behind it.",
     ],
     focus: ['Strategy', 'Collaboration', 'Big-picture thinking'],
-    linkedin: '',
+    linkedin: 'https://www.linkedin.com/in/bhavya-singhal-a0b485381',
   },
   {
     name: 'Anushka Pandey', short: 'Anushka', role: 'Web Developer', tone: 'sky',
@@ -38,7 +38,7 @@ const TEAM = [
       "Anushka designed and developed the AquaByte website, from the home page to the live dashboard, analytics charts and the Aqua assistant. She turned the team's ideas into a clean, responsive site that works on every screen.",
     ],
     focus: ['Web development', 'UI design', 'React'],
-    linkedin: '',
+    linkedin: 'https://www.linkedin.com/in/anushka-pandey-83b570381',
   },
 ]
 
@@ -48,9 +48,9 @@ const ACHIEVEMENT = {
   text: 'We presented AquaByte at IDEAS 4.0, the innovation and entrepreneurship event by KEIC at K.R. Mangalam University, and were awarded certificates on stage. A moment that pushed us to keep building.',
   // Photos live in public/achievements/
   photos: [
-    { src: '/achievements/ideas-1.jpg', alt: 'Receiving our certificate on stage at IDEAS 4.0' },
-    { src: '/achievements/ideas-2.jpg', alt: 'The AquaByte team on stage at IDEAS 4.0' },
-    { src: '/achievements/ideas-3.jpg', alt: 'Certificate of recognition at K.R. Mangalam University' },
+    { src: '/achievements/ideas-1.jpg', alt: 'The AquaByte team receiving their certificate on stage at IDEAS 4.0' },
+    { src: '/achievements/ideas-2.jpg', alt: 'The AquaByte team receiving the certificate on stage at IDEAS 4.0' },
+    { src: '/achievements/ideas-3.jpg', alt: 'Being congratulated on stage at IDEAS 4.0, K.R. Mangalam University' },
   ],
 }
 

@@ -215,7 +215,7 @@
 .tm-ac-text { padding: 12px 18px 12px 0; position: relative; z-index: 1; }
 .tm-gallery { position: relative; z-index: 1; display: grid; gap: 10px; min-width: 0; }
 .tm-gallery-main {
-  width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 18px; border: 4px solid rgba(255, 255, 255, .85);
+  width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 30%; border-radius: 18px; border: 4px solid rgba(255, 255, 255, .85);
   box-shadow: 0 20px 40px -20px rgba(0, 0, 0, .45); animation: tm-photo-in .6s cubic-bezier(.2, .8, .2, 1) both;
 }
 @keyframes tm-photo-in { from { opacity: 0; transform: scale(.97) } }
