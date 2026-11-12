@@ -31,9 +31,9 @@ const TEAM = [
     linkedin: 'https://www.linkedin.com/in/bhavya-singhal-a0b485381',
   },
   {
-    name: 'Anushka Pandey', short: 'Anushka', role: 'Web Developer', tone: 'sky',
-    label: 'Web Developer',
-    photo: '/team/anushka.jpg',
+    name: 'Anushka Pandey', short: 'Anushka', role: 'Core Team Member', tone: 'sky',
+    label: 'Core Team Member',
+    photo: null, // shows the AP initials card instead of a photo
     inHero: false, // not shown in the top water drops (founders only)
     bio: [
       "Anushka designed and developed the AquaByte website, from the home page to the live dashboard, analytics charts and the Aqua assistant. She turned the team's ideas into a clean, responsive site that works on every screen.",
