@@ -235,19 +235,6 @@ export default function Team() {
         </svg>
       </section>
 
-      {/* ---------- Scrolling names ---------- */}
-      <div className="tm-marquee" aria-hidden="true">
-        <div className="tm-marquee-track">
-          {[0, 1].map(copy => (
-            TEAM.map((person, i) => (
-              <span key={`${copy}-${person.name}`} style={{ display: 'contents' }}>
-                <span className={i % 2 ? 'o' : ''}>{person.name}</span><i>✦</i>
-              </span>
-            )).concat(<span key={`${copy}-tag`} style={{ display: 'contents' }}><span className="o">Every drop, counted</span><i>✦</i></span>)
-          ))}
-        </div>
-      </div>
-
       {/* ---------- Meet the team ---------- */}
       <section className="tm-section">
         <span className="tm-kicker">Meet the team</span>
