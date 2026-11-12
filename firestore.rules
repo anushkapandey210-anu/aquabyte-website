@@ -16,7 +16,7 @@ service cloud.firestore {
     function isFounder() {
       return signedIn() && myEmail() in [
         'anushka06pandey@gmail.com',
-        'bbhavisingal@gmail.com',
+        'bbhavisinghal@gmail.com',
         'nishantkumar1826@gmail.com',
         'aquabyte.nishant@gmail.com',
         'aquabyteiotsolutions@gmail.com'
