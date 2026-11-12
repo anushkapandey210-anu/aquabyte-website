@@ -34,6 +34,7 @@ const TEAM = [
     name: 'Anushka Pandey', short: 'Anushka', role: 'Web Developer', tone: 'sky',
     label: 'Web Developer',
     photo: '/team/anushka.jpg',
+    inHero: false, // not shown in the top water drops (founders only)
     bio: [
       "Anushka designed and developed the AquaByte website, from the home page to the live dashboard, analytics charts and the Aqua assistant. She turned the team's ideas into a clean, responsive site that works on every screen.",
     ],
@@ -215,13 +216,13 @@ export default function Team() {
         <div className="tm-hero-inner">
           <div className="animate-enter">
             <span className="tm-eyebrow"><i />The people behind AquaByte</span>
-            <h1>Three people.<br /><span className="tm-outline">One drop</span> <span className="tm-grad">of an idea.</span></h1>
+            <h1>Two friends.<br /><span className="tm-outline">One question.</span><br /><span className="tm-grad">A mission to make every drop count.</span></h1>
             <p>It started as a conversation between friends. Today it's AquaByte. Move your cursor over the water and meet the team.</p>
             <button className="tm-cta" onClick={() => showPerson(active)}>Meet the team <ArrowDown size={16} /></button>
           </div>
 
           <div className="tm-drops" aria-label="Team members">
-            {TEAM.map((person, i) => (
+            {TEAM.filter(person => person.inHero !== false).map((person, i) => (
               <button key={person.name} className={`tm-drop d${i + 1}`} onClick={() => showPerson(i)}>
                 <span className="tm-drop-shape"><Photo person={person} /></span>
                 <span className="tm-drop-label"><b>{person.short}</b>{person.role}</span>
